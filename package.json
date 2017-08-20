@@ -1,0 +1,33 @@
+{
+  "name": "backbone-webpack-app",
+  "version": "1.0.0",
+  "description": "Backbone application with Webpack,ES6,Jest",
+  "main": "index.js",
+  "author": "smulyono@me.com",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --config webpack.config.js --progress",
+    "build": "rm -rf build && NODE_ENV=production webpack --config webpack.config.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.5",
+    "eslint": "^4.5.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-loader": "^1.9.0",
+    "hard-source-webpack-plugin": "^0.4.9",
+    "html-webpack-plugin": "^2.30.1",
+    "postcss-loader": "^2.0.6",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.5",
+    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-dev-server": "^2.7.1"
+  },
+  "dependencies": {}
+}

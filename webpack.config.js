@@ -1,57 +1,58 @@
 const webpack = require("webpack"),
     path = require("path"),
     CopyWebpackPlugin = require('copy-webpack-plugin'),
-    HtmlWebpackPlugin = require("html-webpack-plugin"),    
+    HtmlWebpackPlugin = require("html-webpack-plugin"),
     HardSourceWebpackPlugin = require("hard-source-webpack-plugin"),
-    bundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-    
+    BundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
 const ROOT_DIR = path.resolve("./"),
     SOURCE_DIR = path.resolve("./src"),
     BUILD_DIR = path.resolve("./build"),
     HTML_TEMPLATE = path.resolve("./src/assets/html/index.html");
 
-
-
 module.exports = {
-    context : ROOT_DIR,
-    output  : {
-        path : BUILD_DIR,
-        filename : "[name]-bundle.js"
+    context: ROOT_DIR,
+    output: {
+        path: BUILD_DIR,
+        filename: "[name]-bundle.js"
     },
-    entry : {
-        "vendors" : ["backbone", "underscore", "jquery"],
-        "app" : "app"
+    entry: {
+        "vendors": ["backbone", "underscore", "jquery"],
+        "app": "src/app"
     },
-    resolve : {
-        modules : ["./libs", SOURCE_DIR, "node_modules"],
-        extensions : [".js", ".json", ".jsx"],
-        alias : {
-            "backbone" : "backbone/backbone",
-            "underscore" : "underscore/underscore",
-            "jquery" : "jquery/jquery"
+    resolve: {
+        modules: [ROOT_DIR, "node_modules"],
+        extensions: [".js", ".json", ".jsx"],
+        alias: {
+            "backbone": "libs/backbone/backbone",
+            "underscore": "libs/underscore/underscore",
+            "jquery": "libs/jquery/jquery",
+            "appRoute": "src/routes",
+            "mainView": "src/views/mainView",
+            "templatePath": "src/templates"
         }
     },
-    resolveLoader : {
-        alias : {
-            text : "raw-loader"
-        }
-    },    
-    devtool : "inline-source-map",
-    devServer : {
-        inline : true,
-        hot : true,
-        port : 3000,
-        compress : true,
-        watchOptions : {
-            ignored : /node_modules/
+    resolveLoader: {
+        alias: {
+            text: "raw-loader"
         }
     },
-    stats : {
-        "chunks" : false,
-        "colors" : true
+    devtool: "inline-source-map",
+    devServer: {
+        inline: true,
+        hot: true,
+        port: 3000,
+        compress: true,
+        watchOptions: {
+            ignored: /node_modules/
+        }
     },
-    module : {
-        rules : [
+    stats: {
+        "chunks": false,
+        "colors": true
+    },
+    module: {
+        rules: [
             // eslint
             {
                 test: /\.(js|jsx)$/,
@@ -61,10 +62,10 @@ module.exports = {
                         loader: require.resolve('eslint-loader'),
                         options: {
                             failOnError: true,
-                            baseConfig : require.resolve('eslint-config-google'),
-                            useEslintrc : true
-                        },
-                    },
+                            baseConfig: require.resolve('eslint-config-google'),
+                            useEslintrc: true
+                        }
+                    }
                 ],
                 include: SOURCE_DIR
             },
@@ -76,7 +77,7 @@ module.exports = {
                     {
                         loader: require.resolve('css-loader'),
                         options: {
-                            importLoaders: 1,
+                            importLoaders: 1
                         }
                     },
                     {
@@ -89,12 +90,13 @@ module.exports = {
                                         '>1%',
                                         'last 4 versions',
                                         'Firefox ESR',
-                                        'not ie < 9', // React doesn't support IE8 anyway
+                                        // React doesn't support IE8
+                                        'not ie < 9'
                                     ],
-                                    flexbox: 'no-2009',
+                                    flexbox: 'no-2009'
                                 })
-                            ],
-                        },
+                            ]
+                        }
                     }
                 ],
                 include: SOURCE_DIR
@@ -114,48 +116,48 @@ module.exports = {
 
         ]
     },
-    plugins : [
+    plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            title : `Image Search`,
-            author : "smulyono",
-            filename : `index.html`,
-            appRootDir  : `${SOURCE_DIR}`,
-            chunks : ["vendors", "app"],
-            template : HTML_TEMPLATE
-        }),    
+            title: `Image Search`,
+            author: "smulyono",
+            filename: `index.html`,
+            appRootDir: `${SOURCE_DIR}`,
+            chunks: ["vendors", "app"],
+            template: HTML_TEMPLATE
+        }),
         new CopyWebpackPlugin([{
-            from : "./src/assets/css",
-            to : "src/assets/css"
-        }]),  
+            from: "./src/assets/css",
+            to: "src/assets/css"
+        }]),
         new webpack.ProvidePlugin({
-            Backbone : "backbone",
-            _ : "underscore"
-        }),        
+            Backbone: "backbone",
+            _: "underscore"
+        }),
         new HardSourceWebpackPlugin({
-            cacheDirectory : "cache/hard-source/[confighash]"
+            cacheDirectory: "cache/hard-source/[confighash]"
         }),
         ((process.env.NODE_ENV && process.env.NODE_ENV === "production") ?
-        new bundleAnalyzer({
-            analyzerMode : "static",
-            defaultSizes: 'gzip',
-            generateStatsFile: true,
-            statsFilename : "build-tools/stats.json",
-            reportFilename : "build-tools/reports.html",
-            openAnalyzer: false,
-            logLevel : "silent"
-        }) 
-        : 
-        new bundleAnalyzer({
-            analyzerMode : "server",
-            analyzerHost : "localhost",
-            analyzerPort : 8888,
-            defaultSizes: 'gzip',
-            generateStatsFile: true,
-            statsFilename : "build-tools/stats.json",
-            openAnalyzer: false,
-            logLevel : "silent"
-        }) 
+            new BundleAnalyzer({
+                analyzerMode: "static",
+                defaultSizes: 'gzip',
+                generateStatsFile: true,
+                statsFilename: "build-tools/stats.json",
+                reportFilename: "build-tools/reports.html",
+                openAnalyzer: false,
+                logLevel: "silent"
+            })
+            :
+            new BundleAnalyzer({
+                analyzerMode: "server",
+                analyzerHost: "localhost",
+                analyzerPort: 8888,
+                defaultSizes: 'gzip',
+                generateStatsFile: true,
+                statsFilename: "build-tools/stats.json",
+                openAnalyzer: false,
+                logLevel: "silent"
+            })
         )
     ]
-}
+};

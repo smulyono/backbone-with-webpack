@@ -1,4 +1,86 @@
 * { margin:0; padding:0 }
 
 body {
+    background-color: whitesmoke;
+
+}
+
+ul.menu {
+    list-style-type: none;
+}
+
+ul.menu li {
+    display:inline-block;
+    width : 40px;
+    background-color : lightblue;
+    border : solid 1px ghostwhite;
+    padding : 7px;
+    height : 14px;
+    margin-right : 7px;
+    color : white;
+    font-weight: bold;
+}
+
+ul.menu li:hover {
+    background-color: blue;
+}
+ul.menu li:hover a,
+ul.menu li:hover a:visited {
+    color : white;
+} 
+
+.search-container {
+    margin : 10px 0;
+    padding: 7px;
+}
+#searchTxt,.searchBtn {
+    font-size : 14px;
+    padding : 7px;
+}
+#searchTxt {
+    width : 200px;    
+}
+
+.output-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.output-container .item {
+    border : solid 1px #ececec;
+    margin : 7px;
+}
+.output-container .item img {
+    width : 100px;
+    height: 100px;
+}
+
+div.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width : 100%;
+    height: 250px;
+}
+div.about-container .about-item {
+    border-radius: 20px;
+    border : solid 1px slategray;
+    width : 400px;
+    min-height: 100px;
+    background-color: gainsboro;    
+}
+div.about-container .title {
+    font-size: 20px;
+    border-bottom : solid 1px #ececec;
+    margin-bottom : 7px;
+    text-align: center;
+    padding: 3px 4px;
+    letter-spacing : 0.5px;
+}
+div.about-container p {
+    margin : 7px;
+    padding : 7px;
+    letter-spacing: 1px;
 }

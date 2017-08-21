@@ -1,3 +1,5 @@
 // main entry
+/* eslint no-unused-vars: 0 */
+const $ = window.$ = window.jQuery = require("jquery");
 
-document.querySelector("#root").innerHTML="Hello World!";
+require(["appRoute"], () => {});

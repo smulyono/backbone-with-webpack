@@ -26,6 +26,8 @@ const MainView = Backbone.View.extend({
         let searchTerm = this.$("#searchTxt").val();
         let parent = this;
         console.info('searching ', searchTerm);
+        this.model.clear();
+        this.model.set(this.model.defaults);
         this.model.set("term", searchTerm);
         this.model.fetch({
                 data: this.model.attributes
@@ -38,7 +40,6 @@ const MainView = Backbone.View.extend({
             });
     },
     renderImages: function(jsonData) {
-        console.info(jsonData);   
         let itemTemplate = _.template(itemHtml);
         let photoItems = [];
         if (jsonData && jsonData.hasOwnProperty("photos") 
